@@ -1,7 +1,9 @@
 1.a:
     docker build -t img_1a .
+
 b: 
     docker run -e SRC="src" -e DST="dst" img_1a
+
 c: 
     Pour vérifier que l'opération à réussi on exécute la commande ci-dessous :
     docker exec -it <container_id> bash
@@ -46,10 +48,15 @@ b.:
 
 4:
     - On créer le fichier "script_observer.py" et le fichier "Dockerfile-observer.py"
+
     - On build l'image de l'observer qui s'appelle "img_observer" avec comme seul contenu le "script_observer.py"
+
     - On commence a run dans le bon ordres les containers :
+
         * Premier contenaier "container_dst" : docker run -it --name container_dst -v $pwd/dst:/usr/src/app/dst bash 
+
         * Second container "container_observer" : docker run --name container_observer -e OBSERVED="dst" -v $pwd`:/usr/src/app img_observer
+        
         * Troisième container "container_src" : docker run --name container_src -e SRC="src" -e DST="dst" -v $pwd`:/usr/src/app img_1a
 
 # Résultat obtenu :
