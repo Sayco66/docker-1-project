@@ -56,10 +56,11 @@ b.:
         * Premier contenaier "container_dst" : docker run -it --name container_dst -v $pwd/dst:/usr/src/app/dst bash 
 
         * Second container "container_observer" : docker run --name container_observer -e OBSERVED="dst" -v $pwd`:/usr/src/app img_observer
-        
+
         * Troisième container "container_src" : docker run --name container_src -e SRC="src" -e DST="dst" -v $pwd`:/usr/src/app img_1a
 
 # Résultat obtenu :
+```bash
 Contenu du dossier observed : ['empty.txt'] à cette date : 2023-07-31 12:54:04.377851
 Contenu du dossier observed : ['empty.txt'] à cette date : 2023-07-31 12:54:09.384436
 Contenu du dossier observed : ['empty.txt'] à cette date : 2023-07-31 12:54:14.391486
@@ -72,3 +73,4 @@ Contenu du dossier observed : ['empty.txt'] à cette date : 2023-07-31 12:54:44.
 Contenu du dossier observed : ['empty.txt'] à cette date : 2023-07-31 12:54:49.440464
 Contenu du dossier observed : ['empty.txt', 'file_1.txt', 'file_2.txt'] à cette date : 2023-07-31 12:54:54.447788
 Contenu du dossier observed : ['empty.txt', 'file_1.txt', 'file_2.txt'] à cette date : 2023-07-31 12:54:59.455509
+```
