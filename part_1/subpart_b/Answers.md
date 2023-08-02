@@ -1,10 +1,13 @@
-1:
+# Exercice 1:
 La commande qui permet de bâtir l'image est :
-    - docker build -t img_1b
+```bash
+docker build -t img_1b
+```
 Puis pour run le container :
-    - docker run img_1b
-
-2:
+```bash
+docker run img_1b
+```
+# Exercice 2:
 Ces valeurs ont été définis dans le Dockerfile : 
 ```Dockerfile
 FROM busybox
@@ -19,12 +22,12 @@ RUN export VAR_2="Some variable for 2"
 CMD echo FOO is $VAR_1, BAR is $VAR_2
 ```
 
-# Voici ce que l'on obtient après modifications.
+Voici ce que l'on obtient après modifications.
 ```bash 
 FOO is Some variable for 1, BAR is Some variable for 2
 ```
 
-3:
+# Exercice 3:
 Voici à quoi ressemble le "Dockerfile-corrected" :
 ```Dockerfile
 FROM busybox
@@ -38,9 +41,11 @@ docker run -e VAR_1="Some variable for 1" -e VAR_2="Some variable for 2" img_1bc
 ```
 
 # Résultat : 
+```bash
 FOO is Some variable for 1, BAR is Some variable for 2
+```
 
-4:
+# Exercice 4:
 ```bash
 [+] Building 1.2s (7/7) FINISHED
  => [app internal] load build definition from Dockerfile                                                                                                                    0.0s
@@ -61,5 +66,4 @@ Attaching to subpart_b-app-1
 subpart_b-app-1  | FOO is Some variable for 1, BAR is Some variable for 2
 subpart_b-app-1 exited with code 0
 ```
-
-# On voit bien que la commande echo est executée avec les bonnes variables environnementales.
+On voit bien que la commande echo est executée avec les bonnes variables environnementales.

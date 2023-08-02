@@ -1,5 +1,5 @@
-1:
-# Explication du fichier "script.py".
+# Exercice 1:
+Explication du fichier "script.py".
 ```python
 import datetime
 import os
@@ -51,21 +51,21 @@ if __name__ == "__main__":
             print(e)
 ```
 
-2:
-# Voici les commandes a faire pour répondre à la question 2, j'ai utilisé un bind-mounts pour pouvoir vérifier le fonctionnement facilement.
+# Exercice 2:
+- Voici les commandes a faire pour répondre à la question 2, j'ai utilisé un bind-mounts pour pouvoir vérifier le fonctionnement facilement.
 ```bash
 docker build -t imc_1c .
 docker run --rm -v $pwd/python:/usr/src/app/python img_1c
 docker run --rm -v $pwd/javascript:/usr/src/app/javascript img_1c 
 ```
 
-# Vérification :
-La première commande a seulement récupéré la table python et la seconde seulement le javascript.
-Donc il y a bien 2 volumes différents pour chaque language.
-Si on fait un docker ps -a on voit bien que le container provenant de l'image "img_1c" n'apparaît pas.
+- Vérification :
+    * La première commande a seulement récupéré la table python et la seconde seulement le javascript.
+    * Donc il y a bien 2 volumes différents pour chaque language.
+    * Si on fait un docker ps -a on voit bien que le container provenant de l'image "img_1c" n'apparaît pas.
 
-3:
-# Voici les commandes a faire pour répondre à la question 3.
+# Exerice 3:
+Voici les commandes a faire pour répondre à la question 3.
 ```bash
 docker build -t imc_1cplus .
 docker run --rm -v $pwd/python:/usr/src/app/python img_1cplus
@@ -73,8 +73,8 @@ docker run --rm -v $pwd/javascript:/usr/src/app/javascript img_1cplus
 docker run --rm -v $pwd/php:/usr/src/app/php img_1cplus 
 ```
 
-4:
-# Ce code ci-dessous va effectuer une requête post sur une l'url définie dans la variable URL_LOGS puis va lire le fichier de logs.
+# Exercice 4:
+Ce code ci-dessous va effectuer une requête post sur une l'url définie dans la variable URL_LOGS puis va lire le fichier de logs.
 ```python
 URL_LOGS = "????"
 
@@ -89,17 +89,17 @@ with open("logs.txt", "r") as f:
 
 ```
 
-# Etape 1: créer le fichier "app.py", "dockerfile-app" et "requirements-app.txt".
+- Etape 1: créer le fichier "app.py", "dockerfile-app" et "requirements-app.txt".
 
-# Etape 2: Modifier le fichier "script.py" et rebuild l'image "img_1cplus"
+- Etape 2: Modifier le fichier "script.py" et rebuild l'image "img_1cplus"
 
-# Etape 3: run les containers dans le bon ordre : d'abord "img_1capp" puis "img_1cplus". (J'ai utilisé l'image run avec le volume php pour être sur qu'elle fonctionne toujours)
+- Etape 3: run les containers dans le bon ordre : d'abord "img_1capp" puis "img_1cplus". (J'ai utilisé l'image run avec le volume php pour être sur qu'elle fonctionne toujours)
 ```bash
 docker run -p 80:80 img_1capp
 docker run --rm -v $pwd/php:/usr/src/app/php img_1cplus
 ```
 
-# Résultat:
+- Résultat:
 ```bash
 2023-08-01T08:00:58.203989: python data scraped
 
@@ -111,18 +111,18 @@ Status code 200
 {'data_received': {'logs': '2023-08-01T08:00:58.203989: python data scraped\n2023-08-01T08:00:58.403641: javascript data scraped\n2023-08-01T08:00:58.622933: php data scraped\n'}, 'success': True}
 ```
 
-5:
-# Etape 1: créer le fichier "script_simple.py", "dockerfile-simple" et "requirements-simple.txt".
+# Exerice 5:
+- Etape 1: créer le fichier "script_simple.py", "dockerfile-simple" et "requirements-simple.txt".
 
-# Etape 2: Build l'image du container avec le nom "img_1csimple".
+- Etape 2: Build l'image du container avec le nom "img_1csimple".
 
-# Run les containers dans le bon ordre: d'abord "img_1capp" puis "img_csimple". Sans oublier les variables d'environnements.
+- Run les containers dans le bon ordre: d'abord "img_1capp" puis "img_csimple". Sans oublier les variables d'environnements.
 ```bash
 docker run -p 80:80 img_1capp
 docker run --rm -e URL="https://fr.wikipedia.org/wiki/Structured_Query_Language" -e LANGUAGE="sql" -v $pwd/sql:/usr/src/app/sql img_1csimple
 ```
 
-# Résultat:
+- Résultat:
 ```bash
 2023-08-01T08:41:12.039397: sql data scraped
 
@@ -130,8 +130,8 @@ Status code 200
 {'data_received': {'logs': '2023-08-01T08:41:12.039397: sql data scraped\n'}, 'success': True}
 ```
 
-6:
-# Creation et Exécution du fichier "orchestrate.py"
+# Exercice 6:
+- Creation et Exécution du fichier "orchestrate.py"
 ```python
 import subprocess;
 import time;
@@ -145,7 +145,7 @@ time.sleep(5)
 process=subprocess.Popen(["powershell",f'docker run --rm -e URL="{URL_JAVASCRIPT}" -e LANGUAGE="javascript" -v $pwd/javascript:/usr/src/app/javascript img_1csimple'])
 ```
 
-# Resultat:
+- Resultat:
 ```bash
 python .\orchestrate.py
 [+] Building 0.2s (10/10) FINISHED                                                                                                               docker:default

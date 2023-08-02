@@ -1,13 +1,17 @@
-1.a:
-    docker build -t img_1a .
-
-b: 
+# Exercice 1:
+## Question a:
+```bash
+docker build -t img_1a .
+```
+## Question b: 
     docker run -e SRC="src" -e DST="dst" img_1a
 
-c: 
-    Pour vérifier que l'opération à réussi on exécute la commande ci-dessous :
-    docker exec -it <container_id> bash
-    Et on vérifie dans le dossier "dst" que le contenu de src y est.
+## Question c: 
+Pour vérifier que l'opération à réussi on exécute la commande ci-dessous :
+```bash
+docker exec -it <container_id> bash
+```
+Et on vérifie dans le dossier "dst" que le contenu de src y est.
  ```bash
     root@9a673f2ecc2e:/usr/src/app# ls
     Answers.md  Dockerfile  dst  script_a.py  src
@@ -15,16 +19,30 @@ c:
     empty.txt  file_1.txt  file_2.txt
  ```
 
-2: Modification du fichier scrip_a.py en commentant la ligne time.sleep(10000)
+# Exercice 2: 
+- Modification du fichier scrip_a.py en commentant la ligne time.sleep(10000)
 
-3.a:
-    - Build de l'image bash: docker build -t bash .
-# Le container suivant est executé en mode interactif pour qu'il reste actif lors de la copie des fichier et pour pouvoir vérifier que les fichiers ont bien été copiés sur le bind mounts.
-    - Création du container "container_dst" : docker run -it --name container_dst -v $pwd/dst:/usr/src/app/dst bash 
-# Le caractère "`" est nécessaire en powershell pour éviter que le caractère ":" soit interprété dans la variable d'environnement "$pwd"
-    - Création du container "container_src" : docker run --name container_src -e SRC="src" -e DST="dst" -v $pwd`:/usr/src/app img_1a
-    - On vérifie ensuite que les fichiers ont bien été copiés dans le "container_dst"
-# Pour êre sur on supprime le contenu du dosier et on run a nouveau le "container_src" pour vérifier que celà fonctionne bien.
+# Exercice 3:
+## Question a:
+- Build de l'image bash: 
+```bash
+docker build -t bash .
+```
+Le container suivant est executé en mode interactif pour qu'il reste actif lors de la copie des fichier et pour pouvoir vérifier que les fichiers ont bien été copiés sur le bind mounts.
+
+- Création du container "container_dst" : 
+
+
+```bash
+docker run -it --name container_dst -v $pwd/dst:/usr/src/app/dst bash
+``` 
+- Le caractère "`" est nécessaire en powershell pour éviter que le caractère ":" soit interprété dans la variable d'environnement "$pwd"
+- Création du container "container_src" : 
+```bash
+docker run --name container_src -e SRC="src" -e DST="dst" -v $pwd`:/usr/src/app img_1a
+```
+- On vérifie ensuite que les fichiers ont bien été copiés dans le "container_dst"
+Pour êre sur on supprime le contenu du dosier et on run a nouveau le "container_src" pour vérifier que celà fonctionne bien.
  ```bash 
     bash-5.2# ls
     bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var
@@ -37,27 +55,37 @@ c:
     bash-5.2# ls
     empty.txt   file_1.txt  file_2.txt
 ```
-b.:
-    - Build de l'image bash: docker build -t bash .
-# Le container suivant est executé en mode interactif pour qu'il reste actif lors de la copie des fichier et pour pouvoir vérifier que les fichiers ont bien été copiés sur le bind mounts.
-    - Création du container "container_dst" : docker run -it --name container_dst -v volume/dst:/usr/src/app/dst bash 
-# Le caractère "`" est nécessaire en powershell pour éviter que le caractère ":" soit interprété dans la variable d'environnement "$pwd"
-    - Création du container "container_src" : docker run --name container_src -e SRC="src" -e DST="dst" -v volume:/usr/src/app img_1a
-    - On vérifie ensuite que les fichiers ont bien été copiés dans le "container_dst"
-# Pour êre sur on supprime le contenu du dosier et on run a nouveau le "container_src" pour vérifier que celà fonctionne bien.
+## Qestion b:
+- Build de l'image bash: 
+```bash
+docker build -t bash .
+```
+- Le container suivant est executé en mode interactif pour qu'il reste actif lors de la copie des fichier et pour pouvoir vérifier que les fichiers ont bien été copiés sur le bind mounts.
+- Création du container "container_dst" : 
 
-4:
-    - On créer le fichier "script_observer.py" et le fichier "Dockerfile-observer.py"
+```bash
+docker run -it --name container_dst -v volume/dst:/usr/src/app/dst bash 
+```
+Le caractère "`" est nécessaire en powershell pour éviter que le caractère ":" soit interprété dans la variable d'environnement "$pwd"
+- Création du container "container_src" : 
+```bash
+docker run --name container_src -e SRC="src" -e DST="dst" -v volume:/usr/src/app img_1a
+```
+- On vérifie ensuite que les fichiers ont bien été copiés dans le "container_dst"
+- Pour êre sur on supprime le contenu du dosier et on run a nouveau le "container_src" pour vérifier que celà fonctionne bien.
 
-    - On build l'image de l'observer qui s'appelle "img_observer" avec comme seul contenu le "script_observer.py"
+# Exercice 4:
+- On créer le fichier "script_observer.py" et le fichier "Dockerfile-observer.py"
 
-    - On commence a run dans le bon ordres les containers :
+- On build l'image de l'observer qui s'appelle "img_observer" avec comme seul contenu le "script_observer.py"
 
-        * Premier contenaier "container_dst" : docker run -it --name container_dst -v $pwd/dst:/usr/src/app/dst bash 
+- On commence a run dans le bon ordres les containers :
 
-        * Second container "container_observer" : docker run --name container_observer -e OBSERVED="dst" -v $pwd`:/usr/src/app img_observer
+    * Premier contenaier "container_dst" : docker run -it --name container_dst -v $pwd/dst:/usr/src/app/dst bash 
 
-        * Troisième container "container_src" : docker run --name container_src -e SRC="src" -e DST="dst" -v $pwd`:/usr/src/app img_1a
+    * Second container "container_observer" : docker run --name container_observer -e OBSERVED="dst" -v $pwd`:/usr/src/app img_observer
+
+    * Troisième container "container_src" : docker run --name container_src -e SRC="src" -e DST="dst" -v $pwd`:/usr/src/app img_1a
 
 # Résultat obtenu :
 ```bash
