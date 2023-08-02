@@ -40,7 +40,7 @@ Voici la commande à utiliser pour définir les variables d'environnement à tra
 docker run -e VAR_1="Some variable for 1" -e VAR_2="Some variable for 2" img_1bcorrected
 ```
 
-# Résultat : 
+Résultat : 
 ```bash
 FOO is Some variable for 1, BAR is Some variable for 2
 ```
