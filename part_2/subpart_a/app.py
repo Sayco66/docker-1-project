@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 def get_db():
     client = MongoClient(
-        host="test_mongodb",
+        host="host.docker.internal",
+       # host="test_mongodb",  #-u test_mongodb
         port=27017,
         username="root",
         password="pass",
@@ -35,3 +36,4 @@ def get_stored_animals():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+    
